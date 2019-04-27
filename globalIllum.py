@@ -8,7 +8,17 @@ import luminance
 globalIllum_list = []
 
 class globalIllum:
-    ''' fill later
+    '''      name: name of object
+               hl: lower hue limit
+               hu: upper hue limit
+               ll: lower luminance limit
+               lu: upper luminance limit
+               sl: lower saturation limit
+               su: upper saturation limit
+            h_avg: average hue value
+            l_avg: average luminance value
+            s_avg: average saturation value
+       num_pixels: number of pixels detected in group
     '''
 
     def __init__(self, name, hl, hu, ll, lu, sl, su):
@@ -29,17 +39,24 @@ class globalIllum:
 
 
     def add(self, avg_h, avg_l, avg_s, num_pixels):
+        ''' adds avg hls values from image to global average bucket
+                avg_h: average hue value from image range
+                avg_l: average luminance value from image range
+                avg_s: average saturation value from image range
+            num_pixels: number of pixels detected in group
+        '''
 
-            total_pixels = self.num_pixels + num_pixels
+        total_pixels = self.num_pixels + num_pixels
 
-            if(total_pixels != 0): 
-                self.h_avg = (self.num_pixels / total_pixels) * self.h_avg + (num_pixels / total_pixels) * avg_h
-                self.l_avg = (self.num_pixels / total_pixels) * self.l_avg + (num_pixels / total_pixels) * avg_l
-                self.s_avg = (self.num_pixels / total_pixels) * self.s_avg + (num_pixels / total_pixels) * avg_s
-            self.num_pixels = total_pixels
+        if(total_pixels != 0): 
+            self.h_avg = (self.num_pixels / total_pixels) * self.h_avg + (num_pixels / total_pixels) * avg_h
+            self.l_avg = (self.num_pixels / total_pixels) * self.l_avg + (num_pixels / total_pixels) * avg_l
+            self.s_avg = (self.num_pixels / total_pixels) * self.s_avg + (num_pixels / total_pixels) * avg_s
+        self.num_pixels = total_pixels
 
 
 def print_globals():
+    ''' prints global parameters (debug mode) '''
 
     for glo in globalIllum_list:
         print( str(glo.name) + ' | global hues [{0:.2f}, {1:.2f}] : {2:.2f}'.format(glo.hl, glo.hu, glo.h_avg))
@@ -48,6 +65,7 @@ def print_globals():
 
 
 def clear():
+    ''' clears global parameters '''
 
     for glo in globalIllum_list:
         glo.h_avg = 0
@@ -57,6 +75,11 @@ def clear():
 
 
 def cluster(img, num_hues, iters):
+    ''' finds optimal partitioning of hues from img using k-means
+             img: image to sample pixels from
+        num_hues: number of hue buckets to generate
+           iters: iterations to run k-means for
+    '''
 
     img_pixels = np.array(img)
     hgt, wth, c = img_pixels.shape
@@ -103,6 +126,9 @@ def cluster(img, num_hues, iters):
 
 
 def segment(img):
+    ''' creates segmentation plot of global hue class averages
+             img: PIL image
+    '''
 
     img_pixels = np.array(img)
     hgt, wth, c = img_pixels.shape
@@ -157,6 +183,9 @@ def segment(img):
 
 
 def class_segment(img):
+    ''' creates segmentation plot of global hue classes
+             img: PIL image
+    '''
 
     img_pixels = np.array(img)
     hgt, wth, c = img_pixels.shape
@@ -210,6 +239,9 @@ def class_segment(img):
 
 
 def plot_chart(img):
+    ''' comparison chart of global hues of img
+             img: PIL image
+    '''
 
     img_pixels = np.array(img)
     hgt, wth, c = img_pixels.shape
@@ -314,6 +346,10 @@ def plot_chart(img):
 
 
 def plot_chart_multi(img1, img2):
+    ''' comparison chart of global hues between img1 and img2
+             img1: PIL image
+             img2: PIL image
+    '''
 
     img1_pixels = np.array(img1)
     img2_pixels = np.array(img2)
@@ -486,6 +522,9 @@ def plot_chart_multi(img1, img2):
 
 
 def reweight(img):
+    ''' reweight global averages ber hue range
+            img: PIL image
+    '''
 
     img_pixels = np.array(img)
     hgt, wth, c = img_pixels.shape
@@ -589,6 +628,12 @@ def reweight(img):
 
 
 def relight(img, hue_weight, lum_weight, sat_weight):
+    ''' calculate relighting values for hue, lum, and sat and store them in corresponding weights
+               img: PIL image
+        hue_weight: 2D array storing hue relighting weights
+        lum_weight: 2D array storing luminance relighting weights
+        sat_weight: 2D array storing saturation relighting weights
+    '''
 
     img_pixels = np.array(img)
     hgt, wth, c  = img_pixels.shape

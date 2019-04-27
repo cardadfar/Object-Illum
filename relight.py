@@ -16,10 +16,15 @@ import luminance
 
 
 def relighting_weights(img, illumObj, lum_weight, bbox):
-    ''' get pixel differenece between image and average '''
-
+    ''' get luminance difference between image and illumObj avergae
+               img: PIL image
+          illumObj: Local Illumination Object 
+        lum_weight: 2D array storing illumination weights
+              bbox: Bounding box of detected object on img
+    '''
 
     img_pixels = np.array(img)
+    img_wth, img_hgt = img.size
 
     x_init  = bbox.x;
     y_init  = bbox.y;
@@ -57,15 +62,21 @@ def relighting_weights(img, illumObj, lum_weight, bbox):
             top = top_lft * (1 - xf) + top_rgt * (xf)
             cen = bot * (1 - yf) + top * (yf)
 
-            hls = luminance.rgb_to_hls(img_pixels[y,x]);
 
-            lum_weight[y,x] = (hls[1] - cen)
+            if(img_wth > x) and (img_hgt > y):
+                hls = luminance.rgb_to_hls(img_pixels[y,x]);
+
+                lum_weight[y,x] = (hls[1] - cen)
     
     return lum_weight
 
 
 def relighting_global_weights(img, lum_weight, globalIllum):
-    ''' get pixel differenece between image and average '''
+    ''' get luminance difference between image and global image avergae
+                img: PIL image
+         lum_weight: 2D array storing illumination weights
+        globalIllum: Global Illumination Object
+    '''
 
     img_pixels = np.array(img)
     hgt_g, wth_g, c = globalIllum.shape
@@ -83,6 +94,10 @@ def relighting_global_weights(img, lum_weight, globalIllum):
 
 
 def smoothen(lum_weight, itters):
+    ''' smooths out images using [3x3] gaussian smoothening 
+        lum_weight: 2D array storing illumination weights
+            itters: Number of iterations to rerun smoothening operation on
+    '''
 
     lum_weight_new = lum_weight
 
@@ -99,6 +114,13 @@ def smoothen(lum_weight, itters):
 
 
 def relight(img, hue_weight, lum_weight, sat_weight, step):
+    ''' relights image in hsl space according to assigned weights and step-size
+               img: PIL image
+        hue_weight: 2D array storing hue weights
+        lum_weight: 2D array storing illumination weights
+        sat_weight: 2D array storing saturation weights
+              step: [3x1] set of weights for [hue, lum, sat] relighting
+    '''
 
 
     img_pixels  = np.array(img)
@@ -130,6 +152,9 @@ def relight(img, hue_weight, lum_weight, sat_weight, step):
 
 
 def greyscale(img):
+    ''' returns image with luminace values only
+        img: PIL image
+    '''
 
     img_pixels  = np.array(img)
     hgt, wth, c = img_pixels.shape
@@ -148,9 +173,11 @@ def greyscale(img):
 
 
 
-
-
 def difference(img1, img2):
+    ''' returns difference between img1 and img2 pixels
+        img1: PIL image
+        img2: PIL image
+    '''
 
     img1_pixels  = np.array(img1)
     img2_pixels  = np.array(img2)
@@ -161,20 +188,17 @@ def difference(img1, img2):
     return dif
 
 
-
-
-
-
-
-
-
 def load_files(input_dir):
+    ''' loads filenames into array
+        input_dir: Directory to search into
+    '''
 
     input_files = [f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f))]
     files = [os.path.join(input_dir, f) for f in input_files]
 
     for file in files:
         ext = os.path.splitext(file)[-1].lower()
+        #specify extensions here
         if ext != ".jpg":
             files.remove(file)
 
@@ -183,7 +207,16 @@ def load_files(input_dir):
     return files
 
 
+
+
+
+
+
 def main(input_dir, output_dir):
+    ''' main routine that computes image relighting
+         input_dir: Directory to search into
+        output_dir: Directory to save images to
+    '''
 
 
     iters = 1
@@ -200,6 +233,7 @@ def main(input_dir, output_dir):
     num_hues  = 10
     num_lums  = 1
     num_sats  = 1
+    hls_steps = [1.0, 1.0, 1.0]
 
     start = time.time()
     print("Clustering Data | {0:1d} Hues for {1:1d} Itterations".format(num_hues, kmeans_iter))
@@ -284,7 +318,7 @@ def main(input_dir, output_dir):
             sat_weight = smoothen(sat_weight, smooth_factor)
 
 
-            res = relight(img, hue_weight, lum_weight, sat_weight, [1.0, 1.0, 1.0])
+            res = relight(img, hue_weight, lum_weight, sat_weight, hls_steps)
 
             print("Weighting Done. Took {0:.2f}s. ".format(time.time() - start))
 
@@ -303,6 +337,7 @@ def main(input_dir, output_dir):
                 plt.show()
 
 
+            # returns segmentation plot of global hue classes
             show_class = False
             if show_class:
                 img_seg = globalIllum.class_segment(img)
@@ -310,6 +345,7 @@ def main(input_dir, output_dir):
                 plt.show()
 
 
+            # returns segmentation plot of global hue class averages
             show_seg = False
             if show_seg:
                 img_seg = globalIllum.segment(img)
@@ -325,6 +361,7 @@ def main(input_dir, output_dir):
                     new_im.show()
 
 
+            # returns comparison chart of global hues before and after relighting
             show_charts = False
             if show_charts:
                 globalIllum.plot_chart_multi(img, res)
@@ -333,17 +370,18 @@ def main(input_dir, output_dir):
 
             images[i] = res
 
+            # saves image to output directory
             save = True
             if save:
-                res.save(input_dir + 'bottle-image-%d.jpg' % (i))
+                res.save(output_dir + 'bottle-image-%d.jpg' % (i))
 
 
     for i in range(len(images)):
-        img = images[i]
         file = files[i]
         print(file)
 
 
+input_dir = "test-outputs/gates-low-res/"
+output_dir = "greyscale/"
 
-
-main("test-outputs/gates-low-res/", "test-outputs/frame-output-jitter/outputs")
+main(input_dir, output_dir)

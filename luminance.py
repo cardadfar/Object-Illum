@@ -5,6 +5,7 @@ import colorsys
 
 
 def rgb_to_hls(pixel):
+    ''' converts pixel rgb to hls '''
 
     pixel = pixel.astype(float)
     pixel[0] /= 255
@@ -15,6 +16,7 @@ def rgb_to_hls(pixel):
 
 
 def hls_to_rgb(pixel):
+    ''' converts pixel hls to rgb '''
 
     res = colorsys.hls_to_rgb(pixel[0], pixel[1], pixel[2])
     res = list(res)

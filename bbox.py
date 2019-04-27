@@ -21,7 +21,12 @@ class BBox:
 
 
 def are_simmilar(bbox1, bbox2, img_wth, img_hgt):
-    ''' returns true if bboxes are too simmilar, false else '''
+    ''' returns true if bboxes are too simmilar, false else
+          bbox1: bounding box 1
+          bbox2: bounding box 2
+        img_wth: width of image that bboxes lie on
+        img_hgt: height of image that bboxes lie on
+    '''
 
     area_threshold = 0.95
     width_threshold = img_wth * 0.05

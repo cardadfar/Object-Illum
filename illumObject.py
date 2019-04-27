@@ -32,9 +32,13 @@ class IllumObject:
 
 
     def reweight(self, img, bbox):
-        ''' calculate local illumination average for specific object '''
+        ''' calculate local illumination average for specific object 
+             img: PIL image
+            bbox: Bounding box of detected object on img
+        '''
 
         img_pixels = np.array(img)
+        img_wth, img_hgt = img.size
 
         x_min = bbox.x
         y_min = bbox.y
@@ -52,9 +56,11 @@ class IllumObject:
                 x = int(x_min + i * sampleRateX)
                 y = int(y_min + j * sampleRateY)
 
-                hls = luminance.rgb_to_hls(img_pixels[y,x]);
+                if(img_wth > x) and (img_hgt > y):
 
-                self.illum[j,i] = ((1 - weight) * self.illum[j,i]) + (weight * hls[1])
+                    hls = luminance.rgb_to_hls(img_pixels[y,x]);
+
+                    self.illum[j,i] = ((1 - weight) * self.illum[j,i]) + (weight * hls[1])
 
 
 
