@@ -4,7 +4,7 @@ Object-Illum is a novel relighting technique that relights a sequence of images 
 
 <img src='../master/results/sample-results.png' style='width: 50%;'>
 
-[Paper](http://cardadfar.com/assets/project-descriptions/images/light-stabilization/paper.pdf)
+You can access the [Paper](http://cardadfar.com/assets/project-descriptions/images/light-stabilization/paper.pdf) here.
 
 ### Running the Algorithm
 
