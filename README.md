@@ -2,4 +2,8 @@
 
 Object-Illum is a novel relighting technique that relights a sequence of images based on global and local scales.
 
-[Original Paper](http://cardadfar.com/assets/project-descriptions/images/light-stabilization/paper.pdf)
+[Paper](http://cardadfar.com/assets/project-descriptions/images/light-stabilization/paper.pdf)
+
+### Running the Algorithm
+
+At the end relight.py, specify an input and output directory. From there, run the relight.py file.
