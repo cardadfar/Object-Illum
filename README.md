@@ -9,7 +9,7 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 ### Running the Algorithm
 
 
-At the end relight.py, you can specify the following parameters,
+At the end of relight.py, you can specify the following parameters,
 ```
 input_dir = "test-outputs/gates-low-res/"
 output_dir = "greyscale/"
@@ -22,3 +22,11 @@ hls_steps = [1.0, 1.0, 1.0]
 main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps)
 ```
 
+* input_dir: directory to import files from
+* output_dir: directory to save relighting files from
+* file_types: types of files to accept
+* iters: number of relighting iterations to run
+* num_hues: number of hue bins to create on startup
+* num_lums: number of luminance bins to create on startup
+* num_sats: number of saturation bins to create on startup
+* hls_steps: timestep for [hue, luminance, saturation] relighting masks
