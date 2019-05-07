@@ -23,13 +23,13 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 
 ### Contributions
 
-* yolo_opencv.py was based around the following [repo](https://github.com/arunponnusamy/object-detection-opencv).
-* relight.py hue chart visualization was based around the following [repo](https://github.com/lighttransport/colorcorrectionmatrix).
+* ```yolo_opencv.py``` was based around the following [repo](https://github.com/arunponnusamy/object-detection-opencv).
+* ```relight.py``` hue chart visualization was based around the following [repo](https://github.com/lighttransport/colorcorrectionmatrix).
 
 
 ### Dependencies
 
-At the end of relight.py, you can specify the following parameters,
+At the end of ```relight.py```, you can specify the following parameters,
 ```
 input_dir = "inputs/"
 output_dir = "outputs/"
@@ -59,7 +59,7 @@ python3 relight.py
 
 ### Debugging Features
 
-The main relight.py file contains additional features to help debug color correction and relighting. Toggling them will perform the operations commented below.
+The main ```relight.py``` file contains additional features to help debug color correction and relighting. Toggling them will perform the operations commented below.
 
 ```
 # returns relight mask of hue, luminance, and saturation
