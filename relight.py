@@ -386,8 +386,8 @@ def main(input_dir, output_dir, file_types, iters, num_hues, num_lums, num_sats,
         print(file)
 
 
-input_dir = "test-outputs/gates-low-res/"
-output_dir = "greyscale/"
+input_dir = "inputs/"
+output_dir = "outputs/"
 file_types = [".jpg"]
 iters = 1
 num_hues = 10
