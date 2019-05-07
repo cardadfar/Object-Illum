@@ -6,9 +6,9 @@ Object-Illum is a novel relighting technique that relights a sequence of images 
 
 You can access the [paper](http://cardadfar.com/assets/project-descriptions/images/light-stabilization/paper.pdf) here.
 
-### Running the Algorithm
+## Running the Algorithm
 
-## Dependencies
+### Dependencies
 
 * PIL
 * os
