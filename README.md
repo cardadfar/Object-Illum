@@ -23,9 +23,8 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 
 ### Contributions
 
-yolo_opencv.py was based around the following [repo](https://github.com/arunponnusamy/object-detection-opencv).
-
-relight.py hue chart visualization was based around the following [repo](https://github.com/lighttransport/colorcorrectionmatrix).
+* yolo_opencv.py was based around the following [repo](https://github.com/arunponnusamy/object-detection-opencv).
+* relight.py hue chart visualization was based around the following [repo](https://github.com/lighttransport/colorcorrectionmatrix).
 
 
 ### Dependencies
