@@ -6,7 +6,7 @@ Object-Illum is a novel relighting technique that relights a sequence of images 
 
 You can access the [paper](http://cardadfar.com/assets/project-descriptions/images/light-stabilization/paper.pdf) here.
 
-## Running the Algorithm
+## Algorithm
 
 ### Dependencies
 
@@ -28,7 +28,7 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 * ```relight.py``` global relight algorithm was based around the following [paper](https://ieeexplore.ieee.org/document/8300518/).
 
 
-### Dependencies
+### Running the Algorithm
 
 At the end of ```relight.py```, you can specify the following parameters,
 ```
