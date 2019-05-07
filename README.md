@@ -11,8 +11,9 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 
 At the end of relight.py, you can specify the following parameters,
 ```
-input_dir = "test-outputs/gates-low-res/"
-output_dir = "greyscale/"
+input_dir = "inputs/"
+output_dir = "outputs/"
+file_types = [".jpg"]
 iters = 1
 num_hues = 10
 num_lums = 1
