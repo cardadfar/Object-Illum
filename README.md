@@ -31,3 +31,30 @@ main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps)
 * num_lums: number of luminance bins to create on startup
 * num_sats: number of saturation bins to create on startup
 * hls_steps: timestep for [hue, luminance, saturation] relighting masks
+
+To run the code, execute the following:
+```
+python3 relight.py
+```
+
+### Debugging Features
+
+The main relight.py file contains additional features to help debug color correction and relighting.
+
+```
+
+# returns relight mask of hue, luminance, and saturation
+show_plots = False
+
+# returns segmentation plot of global hue classes
+show_class = False
+
+# returns segmentation plot of global hue class averages
+show_seg = False
+
+# returns comparison chart of global hues before and after relighting
+show_charts = False
+
+# saves image to output directory
+save = True
+```
