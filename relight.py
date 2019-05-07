@@ -188,23 +188,23 @@ def difference(img1, img2):
     return dif
 
 
-def load_files(input_dir):
+def load_files(input_dir, file_types):
     ''' loads filenames into array
         input_dir: Directory to search into
+        file_types: file extensions to accept
     '''
 
     input_files = [f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f))]
     files = [os.path.join(input_dir, f) for f in input_files]
+    added_files = []
 
     for file in files:
         ext = os.path.splitext(file)[-1].lower()
-        #specify extensions here
-        if ext != ".jpg":
-            files.remove(file)
+        if ext in file_types:
+            added_files.append(file)
 
-    files.sort()
-
-    return files
+    added_files.sort()
+    return added_files
 
 
 
@@ -212,16 +212,26 @@ def load_files(input_dir):
 
 
 
-def main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps) :
+def main(input_dir, output_dir, file_types, iters, num_hues, num_lums, num_sats, hls_steps) :
     ''' main routine that computes image relighting
          input_dir: Directory to search into
         output_dir: Directory to save images to
+        file_types: file extensions to accept
+        iters: number of iterations to rerun algorithm on
+        num_hues: number of hue buckets to create [global relighting]
+        num_lums: number of luminance buckets to create [global relighting]
+        num_sats: number of saturation buckets to create [global relighting]
+        hls_steps: timesteps for [hue, luminance, saturation] relighting
     '''
 
 
     kmeans_iter = 100
 
-    files = load_files(input_dir)
+    files = load_files(input_dir, file_types)
+    if len(files) == 0:
+        print("Detected No Images. Please Check File Extensions.")
+        return
+
     images = []
 
 
@@ -378,10 +388,11 @@ def main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps) 
 
 input_dir = "test-outputs/gates-low-res/"
 output_dir = "greyscale/"
+file_types = [".jpg"]
 iters = 1
 num_hues = 10
 num_lums = 1
 num_sats = 1
 hls_steps = [1.0, 1.0, 1.0]
 
-main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps)
+main(input_dir, output_dir, file_types, iters, num_hues, num_lums, num_sats, hls_steps)
