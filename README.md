@@ -8,6 +8,8 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 
 ### Running the Algorithm
 
+
+At the end relight.py, you can specify the following parameters,
 ```
 input_dir = "test-outputs/gates-low-res/"
 output_dir = "greyscale/"
@@ -19,4 +21,4 @@ hls_steps = [1.0, 1.0, 1.0]
 
 main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps)
 ```
-At the end relight.py, specify an input and output directory. From there, run the relight.py file.
+
