@@ -25,6 +25,7 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 
 * ```yolo_opencv.py``` was based around the following [repo](https://github.com/arunponnusamy/object-detection-opencv).
 * ```relight.py``` hue chart visualization was based around the following [repo](https://github.com/lighttransport/colorcorrectionmatrix).
+* ```relight.py``` global relight algorithm was based around the following [paper](https://ieeexplore.ieee.org/document/8300518/).
 
 
 ### Dependencies
