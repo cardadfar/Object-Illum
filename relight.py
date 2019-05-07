@@ -212,14 +212,13 @@ def load_files(input_dir):
 
 
 
-def main(input_dir, output_dir):
+def main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps) :
     ''' main routine that computes image relighting
          input_dir: Directory to search into
         output_dir: Directory to save images to
     '''
 
 
-    iters = 1
     kmeans_iter = 100
 
     files = load_files(input_dir)
@@ -230,10 +229,6 @@ def main(input_dir, output_dir):
         images.append(Image.open(file))
 
     wth, hgt = Image.open(files[0]).size
-    num_hues  = 10
-    num_lums  = 1
-    num_sats  = 1
-    hls_steps = [1.0, 1.0, 1.0]
 
     start = time.time()
     print("Clustering Data | {0:1d} Hues for {1:1d} Itterations".format(num_hues, kmeans_iter))
@@ -383,5 +378,10 @@ def main(input_dir, output_dir):
 
 input_dir = "test-outputs/gates-low-res/"
 output_dir = "greyscale/"
+iters = 1
+num_hues = 10
+num_lums = 1
+num_sats = 1
+hls_steps = [1.0, 1.0, 1.0]
 
-main(input_dir, output_dir)
+main(input_dir, output_dir, iters, num_hues, num_lums, num_sats, hls_steps)
