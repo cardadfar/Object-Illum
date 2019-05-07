@@ -8,6 +8,20 @@ You can access the [paper](http://cardadfar.com/assets/project-descriptions/imag
 
 ### Running the Algorithm
 
+## Dependencies
+
+* PIL
+* os
+* time
+* numpy
+* scipy
+* matplotlib
+* colorsys
+* sklearn
+* glob
+* cv2
+
+
 
 At the end of relight.py, you can specify the following parameters,
 ```
@@ -39,10 +53,9 @@ python3 relight.py
 
 ### Debugging Features
 
-The main relight.py file contains additional features to help debug color correction and relighting.
+The main relight.py file contains additional features to help debug color correction and relighting. Toggling them will perform the operations commented below.
 
 ```
-
 # returns relight mask of hue, luminance, and saturation
 show_plots = False
 
